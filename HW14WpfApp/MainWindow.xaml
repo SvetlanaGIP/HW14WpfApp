@@ -1,0 +1,48 @@
+﻿<Window x:Class="HW14WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HW14WpfApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="500">
+    <Window.Resources>
+        <local:Converter x:Key="converter"/>
+        <DataTemplate x:Name="productTemplate">
+            <Border x:Name="border" BorderBrush="Pink" Background="LightPink" BorderThickness="2"
+                    Margin="5" Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Width="70" Height="70"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Product name:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding }"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Price:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Category:"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding}"/>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=ProductCategorys}">
+                    <DataTrigger.Value>
+                        <local:ProductCategorys>Food</local:ProductCategorys>
+                    </DataTrigger.Value>
+                    <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <TextBlock x:Name="prodTitle" FontSize="20" Text="To buy List" HorizontalAlignment="Center"/>
+        <ListBox x:Name="listBox" Width="400" Margin="10" ItemsSource="{StaticResource productTemplate}" HorizontalContentAlignment="Center"/>
+    </StackPanel>
+</Window>
